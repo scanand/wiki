@@ -25,48 +25,27 @@ container only has a base OS, and if container needs kernel operations, containe
 Complete OS - Kernel + base OS
 Container - Base OS
 
+### What is a container
+Containers run images
+
+### What is a Container image
+- A container image bundles microservices application with its runtime, dependencies, libraries.
+- A container image represents a source of container deployed - to offer an isolated executable environment for the application
 
 
-Create a Markdown file at `docs/hello.md`:
+### What is Container Orchestration?
+Container Orchestation 
+  - When group of systems work together to form
+  - _clusters_ where 
+  - _container's deployment and management_
+  - *is automated at scale*
 
-```md title="docs/hello.md"
-# Hello
 
-This is my **first Docusaurus document**!
-```
-
-A new document is now available at [http://localhost:3000/docs/hello](http://localhost:3000/docs/hello).
-
-## Configure the Sidebar
-
-Docusaurus automatically **creates a sidebar** from the `docs` folder.
-
-Add metadata to customize the sidebar label and position:
-
-```md title="docs/hello.md" {1-4}
----
-sidebar_label: 'Hi!'
-sidebar_position: 3
----
-
-# Hello
-
-This is my **first Docusaurus document**!
-```
-
-It is also possible to create your sidebar explicitly in `sidebars.js`:
-
-```js title="sidebars.js"
-module.exports = {
-  tutorialSidebar: [
-    'intro',
-    // highlight-next-line
-    'hello',
-    {
-      type: 'category',
-      label: 'Tutorial',
-      items: ['tutorial-basics/create-a-document'],
-    },
-  ],
-};
-```
+### Why Container Orchestration is necessary?
+Container Orchestration is ncesssary such that, when we deploy to code to integration test or production environment - we want our Microserveces must need following requirements. 
+1. *F*ault-tolerance
+2. *O*n-demand scaling
+3. *O*ptical usage of resources
+4. *A*uto-discovery to discover and communicate with each other
+5. *A*ccessibility from the outside world
+6. *S*eamless updates/rollback without any downtime.
