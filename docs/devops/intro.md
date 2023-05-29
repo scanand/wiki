@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Hi!'
+sidebar_label: 'Kubernetes!'
 sidebar_position: 2
 ---
 
@@ -43,15 +43,16 @@ Container Orchestation
 
 ### Why Container Orchestration is necessary?
 Container Orchestration is ncesssary such that, when we deploy to code to integration test or production environment - we want our Microserveces must need following requirements. 
-1. *F*ault-tolerance
-2. *O*n-demand scaling
-3. *O*ptical usage of resources
-4. *A*uto-discovery to discover and communicate with each other
-5. *A*ccessibility from the outside world
-6. *S*eamless updates/rollback without any downtime.
+1. **F**ault-tolerance
+2. **O**n-demand scaling
+3. **O**ptical usage of resources
+4. **A**uto-discovery to discover and communicate with each other
+5. **A**ccessibility from the outside world
+6. **S**eamless updates/rollback without any downtime.
 
 ### What are Container Orchestrators?
 Container Orchestrators are tools grouped together to orchestrate containers
 - these can be deployed on any machine with or without isolation layer like hypervisor
 - VMs on cloud and on Infrastructures-As-A-Service 
-- Kubernetes offered as-a-Service from various provider, AWS, GKE. Kubernetes is not a traditional PAAS because unlinke traditional PAAS, its not monolithic and various services of k8s are pluggable
+- Kubernetes offered as-a-Service from various provider, AWS, GKE. 
+- Kubernetes is not a traditional PAAS because unlinke traditional PAAS, its not monolithic and various services of k8s are pluggable
