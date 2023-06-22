@@ -16,7 +16,7 @@ AWS infrastructure is built around Regions and availability zones AZs
 
 ### Regions
 What: Regions are physical locations around the world (logical)
-Regions have multiple AZs, upto 3
+Regions have multiple AZ s, up to 3
 
 
 ### Availability Zone
@@ -24,7 +24,7 @@ What: Each AZ consists of one or more data centres, each with redundant power, n
 
 ### Edge Locations
 What: Edge Locations are CDN Endpoints for Cloud Front
-They are more than AWS regions, total 200.  CDN end consumers are directed to nearest Edge Location
+They are more than AWS regions, total 200.  CDN end consumers are directed to the nearest Edge Location
 
 AWS shield use Edge locations to 
 >| Related To | Technology | Works with only |
@@ -58,11 +58,11 @@ Has larger cache-width than edge locations.
 ## Compute
 ### Amazon EC2 Auto Scaling
 ### Amazon Elastic Cloud Compute EC2
-- provides resizable computing capacity on the server in Amazon's data centrpre1P
+- provides resizeable computing capacity on the server in Amazon's data centrpre1P
 - *Related To*
-    - Amazon EC2 instace store - one of the block storage option, EC2 instance types come with data volumes that are physically connected to the instance’s physical host. What are these volumes called?
+    - Amazon EC2 instance store - one of the block storage option, EC2 instance types come with data volumes that are physically connected to the instance’s physical host. What are these volumes called?
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 
@@ -72,6 +72,7 @@ Has larger cache-width than edge locations.
 ### AWS Elastic Beanstalk
 - Designed to get web applications up and running on AWS
 - As a developer, you can upload your application code and Beanstalk uses services like EC2, ECS, for load balancing (ELB), auto-scaling (AWS Auto-scaling) and monitoring
+- automation
 
 ### AWS Fargate
 - it s launch type for ECS
@@ -89,7 +90,7 @@ Has larger cache-width than edge locations.
 ### Amazon EKS
 
 ### Amazon ECS
-- Elastic container Sevice
+- Elastic container Service
 
 
 ### Amazon ECR
@@ -116,12 +117,12 @@ ___
     - __Cross-region replication__
     - __Transfer Acceleration__ uses the cloudfront to updload data faster
     - S3 can archive data on AWS Glacier
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 - Uses versioning to maintain copies of database
 - Storage classes
-    - S3 Stanadard
+    - S3 Standard
     - S3 Intelligent tiering
     - S3 Standard-IA - Infrequent Access
     - S3 One Zone-IA
@@ -136,7 +137,7 @@ ___
 - *Related To*
     - Amazon
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 - in memory database
@@ -153,7 +154,7 @@ ___
 - Database in key-value pairs
 - *Related To*
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon DynamoDB Accelerator DAX - reduces latency, its a cache placed infront of DynamoDB
     - AWS
 - point-in-time backup
@@ -167,7 +168,7 @@ ___
 - *Related To*
     - Amazon EC2 instances using EBS volumes can be backed up by creating snapshot of the EBS volume
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 - High availability or Data Durability
@@ -206,7 +207,7 @@ ___
 - *Related To*
     - Amazon EC2 instances using EBS volumes can be backed up by creating snapshot of the EBS volume
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 
@@ -253,6 +254,8 @@ ___
 - Firewall
 - provides protection from DDOS Attack
 
+### AWS Firewall Manager
+- Manages various security services like firewall Shield
 ## AWS Connect
 - AWS customer contact centre
 ### AWS Direct Connect
@@ -271,28 +274,29 @@ ___
 - *Related To*
     - Amazon
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 
-### AWS CloudTrail
-- AWS service to use to closely monitor account activity
 
-What's diff between CloudTrail Config
-------------------------------------------------------------------------------------------------------------------------
-## Management and Governance
----
+----------------------------------------------------------------------------------------------------------
+>   ## Management and Governance
+
+----------------------------------------------------------------------------------------------------------
+
 Infrastructure 
 - Underlying hardware
 - 
+
 ### AWS Cloud Formation
 - infrastructure automation using templates
-- provision broad range of aws resources
+- provision broad range of AWS resources
 - infra-as-a-code
+- **Automation**
 - *Related To*
     - Amazon
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 
@@ -302,27 +306,37 @@ Infrastructure
 - *Related To*
     - Amazon
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 
 ### Amazon Quicksight
 - Biz intellignece sevice
 
-## AWS Batch
+### AWS Batch
 - batch computing jobs on EC2
 
-## AWS Organizations
-- provides api to do a quick and automated way to create and manage the AWS accounts
+### AWS organizations
+- Provide api to do a quick and automated way to create and manage the AWS accounts
 - consolidate the billing and administration of _multiple AWS accounts_
+- helps restrict the AWS service, resources, and individual API actions, the users and roles in each member account can access.
+- Offers following policy types
+    - Service Control policy SCPs offer central control over the maximum available permissions for all the accounts in your organization
+    - Tag Policies - standardises tags across resources in your org accounts and OU.
 
 ### AWS Quick Starts Reference Deployments
 - helps rapidly deploy a popular IT solution and start using it immediately
 - pre-packaged configuration easy to use and quick to deploy
 
 ### AWS Trusted Advisor
-- identifies insecure, inefficient or wastefule configurations on your account
+- identifies insecure, inefficient or wasteful configurations on your account
 - only available with Accounts with either Business- or Enterprise-level support subscriptions
+- a tool provides real-time guidance following Aws best practices in areas of 
+    - cost optimisation, 
+    - provisioning resources,
+    - performace, 
+    - security and 
+    - fault tolerance
 
 ### IAM
 -- Support Identity Federation integration of third-party authentication services 
@@ -351,8 +365,32 @@ Infrastructure
 
 ### AWS CodeBuild
 - building and testing source code
-------------------------------------------------------------------------------------------------------------------------
 
+### AWS Inspector
+
+### AWS CloudTrail
+- AWS service to use to closely monitor account activity
+- Audit Logging - track API activity
+
+### AWS CloudWatch Metrics
+- matrics performance monitoring
+- Matrics - default, custom
+- Monitor Application Performance and operational Health
+- Doesn't monitor hardware/infrastructure or data centre
+
+### AWS CloudWatch Logs
+- put log files in to cloudwatch and troubleshoot
+
+### What's diff between CloudTrail Vs Config Vs CloudWatch
+- 
+
+### CloudHSM
+- Hardware S? M?
+- USed managing encryption key
+
+### AWS Systems Manager
+- Allows an organisation to view __operational data__ from multiple AWS services - through a unified user interface and automate operational tasks
+----------------------------------------------------------------------------------------------------------
 
 ## Nuggets
 1. In a nutshell, if the service is meant to be used (consumed) through an API it will be an Amazon Web Service (short: AWS), otherwise it will be an Amazon product. (1)
@@ -373,7 +411,7 @@ What:
 - *Related To*
     - Amazon
     - AWS
-- *Comprosed of*
+- *Comprised of*
     - Amazon
     - AWS
 ```    
