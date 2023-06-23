@@ -3,13 +3,15 @@ sidebar_label: 'Storage and Databases'
 sidebar_position: 3
 ---
 
-# Storage / Databases
-
+# Storage
+---
 
 - Relational (R)
     - scaling vertically (changin instance size)
 - Non-releational (NR)
     - scaling horizontally ( changing number of instances)
+### AWS Backup
+- 
 
 ## Amazon S3 (SSS Simple Storage Service)
 - stores objects in buckets
@@ -37,24 +39,37 @@ sidebar_position: 3
 - Lifecyle management
     - optimize your S3 storage costs and performance by automating the transfer of data between storage classes
 
-### AWS ElastiCache
-- *Related To*
-    - Amazon
-    - AWS
-- *Comprised of*
-    - Amazon
-    - AWS
-- in memory database
-- 
+## Amazon S3 Glacier
 
-### Storage Gateway
+## AWS Snowball Edge
 
-### Amazon Elastic File System
+## AWS Storage Gateway
+
+## Amazon Elastic File System (Amazon EFS)
 - EFS is a cloud storage service provided by Amazon Web Services
 - designed to provide scalable, elastic, concurrent with some restrictions, and encrypted file storage for use with both AWS cloud services and on-premises resources
 - based on NFS protocol
 
-### DynamoDB NR
+## Amazon Elastic Block Store (Amazon EBS)
+- Amazon Elastic Block Store provides raw block-level storage that can be attached to Amazon EC2 instances and is used by Amazon Relational Database Service. 
+- It is one of the two block-storage options offered by AWS,
+- *Related To*
+    - Amazon EC2 instances using EBS volumes can be backed up by creating snapshot of the EBS volume
+    - AWS
+- *Comprised of*
+    - Amazon
+    - AWS
+
+------------------------------------------------------------------------------------------------------------------------
+# Databases
+
+---
+
+## Aurora R
+- Amazon's proprietary Relational database
+
+## DynamoDB NR
+
 - Database in key-value pairs
 - *Related To*
     - AWS
@@ -63,7 +78,18 @@ sidebar_position: 3
     - AWS
 - point-in-time backup
 
-### Amazon RDS R
+## AWS ElastiCache
+- *Related To*
+    - Amazon
+    - AWS
+- *Comprised of*
+    - Amazon
+    - AWS
+- in memory database
+
+## ElastiCache Redis NR
+
+## Amazon RDS R
 - Relational Database Service - Managed Service - choose the DB engine
 - Automated backups as a default configuration 
     - granularity - Point-in-time recovery 
@@ -88,26 +114,13 @@ sidebar_position: 3
     - burstable performance - cost-effective for nonproduction testing requirements where you don’t need consistent high performance
     - 
 
-### Aurora R
-- Amazon's proprietary Relational database
-### ElastiCache Redis NR
 
-### Amazon Neptune NR
-- Graph DB
-
-
-### Amazon EBS
-- Amazon Elastic Block Store provides raw block-level storage that can be attached to Amazon EC2 instances and is used by Amazon Relational Database Service. 
-- It is one of the two block-storage options offered by AWS,
-- *Related To*
-    - Amazon EC2 instances using EBS volumes can be backed up by creating snapshot of the EBS volume
-    - AWS
-- *Comprised of*
-    - Amazon
-    - AWS
 
 ### Amazon RedShift R
 - fast and scalable datawarehousing service
 
 ### Amazon Athena
 - running SQL queries on database
+
+### Amazon Neptune NR
+- Graph DB
