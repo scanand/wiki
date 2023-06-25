@@ -124,3 +124,6 @@ sidebar_position: 3
 
 ### Amazon Neptune NR
 - Graph DB
+
+Amazon EMR is a managed Hadoop framework running on EC2 and S3. It is used for analyzing data, not for ETL.
+

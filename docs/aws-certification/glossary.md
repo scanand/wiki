@@ -57,22 +57,17 @@ Has larger cache-width than edge locations.
 ------------------------------------------------------------------------------------------------------------------------
 ## Compute
 ### Amazon EC2 Auto Scaling
-### Amazon Elastic Cloud Compute EC2
-- provides resizeable computing capacity on the server in Amazon's data centrpre1P
-- *Related To*
-    - Amazon EC2 instance store - one of the block storage option, EC2 instance types come with data volumes that are physically connected to the instance’s physical host. What are these volumes called?
-    - AWS
-- *Comprised of*
-    - Amazon
-    - AWS
+
 
 
 ### Amazon LightSail
-- cheaper version of EC2
+- lighter / cheaper version of EC2
+
 ### AWS Elastic Beanstalk
-- Designed to get web applications up and running on AWS
+- Designed to get __web applications__ up and running on AWS
 - As a developer, you can upload your application code and Beanstalk uses services like EC2, ECS, for load balancing (ELB), auto-scaling (AWS Auto-scaling) and monitoring
-- automation
+- You can simply upload your code and Elastic Beanstalk automatically handles the deployment, from capacity provisioning, load balancing, auto-scaling to application health monitoring
+- At the same time, you retain full control over the AWS resources powering your application and can access the underlying resources at any time.
 
 ### AWS Fargate
 - it s launch type for ECS
@@ -132,9 +127,9 @@ Has larger cache-width than edge locations.
 - domain registration
 
 
-### Shield
+### AWS Shield
 - Firewall
-- provides protection from DDOS Attack
+- provides protection from Distribute  Denial of Service (DDoS) attack
 
 ### AWS Firewall Manager
 - Manages various security services like firewall Shield
@@ -204,6 +199,7 @@ Infrastructure
 - helps restrict the AWS service, resources, and individual API actions, the users and roles in each member account can access.
 - Offers following policy types
     - Service Control policy SCPs offer central control over the maximum available permissions for all the accounts in your organization
+        - set a limit of the maximum amount of permissions within Organizational Units (OUs) within AWS Organizations.
     - Tag Policies - standardises tags across resources in your org accounts and OU.
 
 ### AWS Quick Starts Reference Deployments
