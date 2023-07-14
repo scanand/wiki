@@ -1,0 +1,48 @@
+## Design Secure Access to AWS Resources
+
+Knowledge of
+- Access Controls and management across multiple accounts
+- AWS federated access and Identity Services ( for exampe, AWS identity and Access Management, AWS SSO)
+- AWS global infrastructure
+- AWS Security Best practices
+- AWS shard responsibility model
+
+Skills in:
+- Applying AWS Security best practices to IAM users and root users (e.g. MFA)
+- Designing flexible autorization model that includes IAM users, groups, roles and policy
+- Designing a role-based access control strategy (e.g. AWS STS, role switching, cross-account access)
+- Designing a security strategy for multiple AES accounts (AWS Control Tower, SCPs)
+- Determining the appropriate use of resoure policies for AWS services
+- Determining when to federate a directory service with IAM roles
+
+## Design Secure workloads and applications
+
+Knowledge of
+- Application configuration and credentials security
+- AWS service endpoints
+- Control ports, protocols, and netowrk traffic on AWS
+- secure application access
+- security serices with apropriate use cases (e.g Amazon Cognito, GuardDuty, Macie)
+- Threat Vectors external to AWS (e.g. DDoS, SQL injection)
+
+Skills in:
+- Designing VPC architectures with security components (e.g. security groups, route tables, network ACLS, NAT Gateway)
+- Determining network segmentatin strategies (e.g. AWS Shield, AWS WAF, AWS SSO, AWS secrets manager)
+- Security external network connections to and from the AWS Cloud (e.g. VPN, Direct Connect)
+
+## Determine appropriate data security controls
+
+Knowledge of
+- Data Access and governance
+- Data recovery
+- Data retention and classification
+- Encryption and appropriate key management
+
+Skills in
+- Aligning AWS technologies to meet compliance requirements
+- Encrypting data at rest (e.g. AWS Key management KMS)
+- Encrypting data in transit (e.g. AWS Certificate manager ACM using TLS)
+- Implementing access policies for encryption keys
+- Implementing data backups and replications
+- Implementing policies for data access, lifecycle and protection
+- Rotating encryption keys and renewing certificates
