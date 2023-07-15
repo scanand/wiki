@@ -31,6 +31,8 @@ AWS shield use Edge locations to
 >| --- | ----------- | ---|
 >| CloudFront, AWS Regions | CDN |
 
+### AWS Global Accelerator
+- used to direct traffic to application endpoints in different Regions using the AWS global network. It does not cache content and would not be used in front of an S3 bucket.
 
 #### Regional Edge Cache Locations
 
@@ -119,7 +121,11 @@ Has larger cache-width than edge locations.
 - Subnet
     - has ip block - a subset of CIDR block
 - spans mutiple availabilty zone in region
-- Has *Internet Gateway* which allows public subnets to connect internet, and inbound connections into vpc
+- The route table is used within a VPC for directing traffic.
+
+### Internet gateway 
+- It is attached to a VPC and allows inbound traffic from the internet to access the VPC. It is also used as a target in route tables for outbound internet traffic.
+
 ### Elastic Load Balancer
 
 ### Route 53

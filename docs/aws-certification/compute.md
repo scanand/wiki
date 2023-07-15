@@ -15,6 +15,7 @@ sidebar_position: 4
 - *Comprised of*
     - Amazon
     - AWS
+- Amazon EC2 scales vertically (unless using Auto Scaling).
 
 ### Billing & Purchase Options
 - Instance types

@@ -59,7 +59,7 @@ sidebar_position: 3
 - *Comprised of*
     - Amazon
     - AWS
-
+- Amazon EBS automatically replicates data within an Availability Zone. Amazon EBS does not support Cross-Region Replication.
 ------------------------------------------------------------------------------------------------------------------------
 # Databases
 
@@ -77,6 +77,7 @@ sidebar_position: 3
     - Amazon DynamoDB Accelerator DAX - reduces latency, its a cache placed infront of DynamoDB
     - AWS
 - point-in-time backup
+- DynamoDB only scales horizontally.
 
 ## AWS ElastiCache
 - *Related To*
