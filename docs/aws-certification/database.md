@@ -1,10 +1,9 @@
----
+title: Storage and Databases
 sidebar_label: 'Storage and Databases'
 sidebar_position: 3
 ---
 
-# Storage
----
+## Storage
 
 - Relational (R)
     - scaling vertically (changin instance size)
@@ -60,10 +59,7 @@ sidebar_position: 3
     - Amazon
     - AWS
 - Amazon EBS automatically replicates data within an Availability Zone. Amazon EBS does not support Cross-Region Replication.
-------------------------------------------------------------------------------------------------------------------------
-# Databases
-
----
+## Databases
 
 ## Aurora R
 - Amazon's proprietary Relational database
@@ -127,4 +123,3 @@ sidebar_position: 3
 - Graph DB
 
 Amazon EMR is a managed Hadoop framework running on EC2 and S3. It is used for analyzing data, not for ETL.
-

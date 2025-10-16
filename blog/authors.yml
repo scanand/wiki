@@ -1,17 +1,31 @@
-endi:
-  name: Endilie Yacop Sucipto
-  title: Maintainer of Docusaurus
-  url: https://github.com/endiliey
-  image_url: https://github.com/endiliey.png
-
-yangshun:
-  name: Yangshun Tay
-  title: Front End Engineer @ Facebook
-  url: https://github.com/yangshun
-  image_url: https://github.com/yangshun.png
+anand:
+  name: Anand Pardhi
+  title: Principal Engineer @ sogile
+  url: https://github.com/scanand
+  image_url: https://github.com/scanand.png
+  bio: |
+    Anand is a Principal Engineer at sogile with 15+ years of experience in software development. He specializes in Java, Spring, and cloud-native technologies. Anand is passionate about building scalable and maintainable systems and enjoys sharing his knowledge through blogging and mentoring.
 
 slorber:
   name: Sébastien Lorber
   title: Docusaurus maintainer
   url: https://sebastienlorber.com
   image_url: https://github.com/slorber.png
+
+yangshun:
+  name: Yangshun Tay
+  title: Front End Engineer @ Meta
+  url: https://github.com/yangshun
+  image_url: https://github.com/yangshun.png
+
+endi:
+  name: Endilie Yacop Sucipto
+  title: Maintainer of Docusaurus
+  url: https://github.com/endiliey
+  image_url: https://github.com/endiliey.png
+
+gao_wei:
+  name: Gao Wei
+  title: Docusaurus Core Team
+  url: https://github.com/wgao19
+  image_url: https://github.com/wgao19.png

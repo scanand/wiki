@@ -22,7 +22,6 @@ const config = {
   projectName: 'docusaurus', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -31,9 +30,6 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
-  plugins: [require.resolve("@cmfcmf/docusaurus-search-local")],
-
 
   presets: [
     [
@@ -63,12 +59,24 @@ const config = {
 
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
-  themes: [
-    '@docusaurus/theme-mermaid',
-    require.resolve("@easyops-cn/docusaurus-search-local"),
+  themes: ['@docusaurus/theme-mermaid'],
+
+  plugins: [
+    [
+      require.resolve('docusaurus-plugin-search-local'),
+      {
+        hashed: true,
+        indexDocs: true,
+        indexBlog: true,
+        highlightSearchTermsOnTargetPage: true,
+      },
+    ],
   ],
-  
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -93,6 +101,7 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
+          {type: 'search', position: 'right'},
           { href: 'https://blog.soagile.com' , label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/scanand',
