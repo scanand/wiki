@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">Cloud Technologies</title>
+  <desc id="desc">Cloud outline with nodes for containers, serverless and databases, connected by lines.</desc>
+  <style>
+    .ln{stroke:currentColor;stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .txt{fill:currentColor;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  </style>
+
+  <!-- Cloud shape -->
+  <path class="ln" d="M120 190a48 48 0 0 1 10-95 70 70 0 0 1 130-10 62 62 0 0 1 100 28 44 44 0 1 1 10 87H140" />
+
+  <!-- Container (stacked boxes) -->
+  <rect class="ln" x="160" y="200" width="64" height="36" rx="6"/>
+  <rect class="ln" x="176" y="186" width="64" height="36" rx="6"/>
+  <rect class="ln" x="192" y="172" width="64" height="36" rx="6"/>
+
+  <!-- Serverless (bolt) -->
+  <path class="ln" d="M310 172l-16 40h20l-10 36 40-52h-22l8-24z"/>
+
+  <!-- Database (cylinder) -->
+  <ellipse class="ln" cx="440" cy="172" rx="52" ry="16"/>
+  <path class="ln" d="M388 172v40c0 9 23 16 52 16s52-7 52-16v-40"/>
+  <path class="ln" d="M388 212c0 9 23 16 52 16s52-7 52-16"/>
+
+  <!-- Connectors -->
+  <path class="ln" d="M224 188h56M346 188h42"/>
+
+  <text class="txt" x="300" y="285" text-anchor="middle" font-size="20">Cloud • Containers • Serverless • Data</text>
+</svg>

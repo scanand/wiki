@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">Java • Spring • Reactive</title>
+  <desc id="desc">Minimal line-art showing a coffee cup, a leaf, and a reactive stream graph.</desc>
+  <style>
+    .ln{stroke:currentColor;stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .txt{fill:currentColor;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  </style>
+
+  <!-- Left: coffee steam + cup -->
+  <path class="ln" d="M110 110c18-18 18-38 0-56M140 110c18-18 18-38 0-56" />
+  <rect class="ln" x="70" y="130" rx="12" ry="12" width="160" height="70"/>
+  <path class="ln" d="M230 150h30a28 28 0 1 1 -5 55" />
+  <path class="ln" d="M70 200c15 25 145 25 160 0" />
+
+  <!-- Center: leaf -->
+  <path class="ln" d="M305 210c-40-40-38-95 18-130 58-37 108-6 110 44 2 44-34 90-92 90-14 0-27-1-36-4" />
+  <path class="ln" d="M305 210c35-30 65-60 95-120" />
+  <circle class="ln" cx="328" cy="170" r="2" />
+
+  <!-- Right: Reactive nodes -->
+  <g>
+    <circle class="ln" cx="470" cy="120" r="18"/>
+    <circle class="ln" cx="530" cy="80" r="18"/>
+    <circle class="ln" cx="530" cy="160" r="18"/>
+    <circle class="ln" cx="470" cy="200" r="18"/>
+    <path class="ln" d="M487 112l26-20M487 128l26 20M513 98l0 44M470 138v44"/>
+    <path class="ln" d="M450 120h-24M450 200h-24M554 80h24M554 160h24"/>
+  </g>
+
+  <text class="txt" x="300" y="270" text-anchor="middle" font-size="20">Java • Spring • Reactive</text>
+</svg>

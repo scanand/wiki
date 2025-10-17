@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="title desc">
+  <title id="title">Simple Reusable Software Architecture</title>
+  <desc id="desc">Blocks connected with arrows to indicate reusable components and clean layering.</desc>
+  <style>
+    .ln{stroke:currentColor;stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .fill{fill:none;stroke:currentColor;stroke-width:6}
+    .txt{fill:currentColor;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  </style>
+
+  <!-- Top layer: Interfaces -->
+  <rect class="fill" x="60" y="40" width="160" height="60" rx="10"/>
+  <rect class="fill" x="220" y="40" width="160" height="60" rx="10"/>
+  <rect class="fill" x="380" y="40" width="160" height="60" rx="10"/>
+
+  <!-- Middle: Services (reusable) -->
+  <rect class="fill" x="120" y="130" width="360" height="70" rx="12"/>
+  <path class="ln" d="M140 165h60M240 165h60M340 165h60M440 165h20"/>
+
+  <!-- Bottom: Infrastructure -->
+  <rect class="fill" x="60" y="230" width="160" height="40" rx="8"/>
+  <rect class="fill" x="220" y="230" width="160" height="40" rx="8"/>
+  <rect class="fill" x="380" y="230" width="160" height="40" rx="8"/>
+
+  <!-- Connectors -->
+  <path class="ln" d="M140 100v20M300 100v20M460 100v20"/>
+  <path class="ln" d="M140 200v20M300 200v20M460 200v20"/>
+
+  <!-- Reuse arrows -->
+  <path class="ln" d="M300 130v-14m0 0l10 10m-10-10l-10 10" />
+  <path class="ln" d="M300 200v14m0 0l10-10m-10 10l-10-10" />
+
+  <text class="txt" x="300" y="290" text-anchor="middle" font-size="20">Simple • Reusable • Layered Architecture</text>
+</svg>
