@@ -1,3 +1,8 @@
+---
+sidebar_label: 'Docker'
+sidebar_position: 3
+---
+
 # 🐳 Docker Commands Cheat Sheet
 
 ## 1. Docker Version & Info
