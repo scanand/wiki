@@ -1,6 +1,6 @@
 ---
-sidebar_label: 'Docker'
-sidebar_position: 3
+sidebar_label: 'Commands'
+sidebar_position: 1
 ---
 
 # 🐳 Docker Commands Cheat Sheet

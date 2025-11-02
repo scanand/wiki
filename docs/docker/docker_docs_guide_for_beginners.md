@@ -1,6 +1,6 @@
 ---
-sidebar_label: 'Docker'
-sidebar_position: 4
+sidebar_label: 'Guide'
+sidebar_position: 2
 ---
 
 
