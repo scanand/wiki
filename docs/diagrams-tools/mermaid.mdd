@@ -1,0 +1,49 @@
+```
+flowchart LR
+
+    %% Main Nodes
+    A[User Request] 
+    B[Web / Mobile UI] 
+    C[BFF Layer] 
+    D[API Gateway] 
+    E[Auth Service] 
+    F[User Service] 
+    G[Order Service] 
+    H[Payment Service] 
+    I[Notification Service] 
+    J[Database]
+
+    %% Note Node
+    N[[NOTE: All services are stateless<br/>JWT used for authentication]]
+
+    %% Connections with dual text
+    A --|Clicks Button / Submits Form|--> B
+    B --|HTTP Call / JSON Payload|--> C
+    C --|Aggregate Data / Transform Response|--> D
+    D --|Validate JWT / Check Role|--> E
+    E --|Auth OK / Return Claims|--> D
+    D --|Fetch Profile / Get Metadata|--> F
+    D --|Create Order / Validate Items|--> G
+    G --|Charge Card / Verify Funds|--> H
+    H --|Payment Success / Generate Receipt|--> I
+    F --|Read / Write|--> J
+    G --|Persist Order / Update Status|--> J
+    I --|Send Email / Push Notification|--> A
+
+    %% Note linkage
+    N -.-> D
+    N -.-> E
+
+    %% Styling
+    classDef frontend fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#000;
+    classDef gateway fill:#E8F5E9,stroke:#43A047,stroke-width:2px,color:#000;
+    classDef service fill:#FFF8E1,stroke:#FB8C00,stroke-width:2px,color:#000;
+    classDef database fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px,color:#000;
+    classDef note fill:#ECEFF1,stroke:#546E7A,stroke-dasharray: 5 5,color:#000;
+
+    class A,B frontend;
+    class C,D gateway;
+    class E,F,G,H,I service;
+    class J database;
+    class N note;
+```
