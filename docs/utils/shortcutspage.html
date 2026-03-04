@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quick Links</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 24px; }
+    header { display:flex; gap:12px; align-items:center; margin-bottom: 16px; }
+    input { flex:1; padding:10px 12px; font-size:16px; }
+    .hint { color:#666; font-size: 13px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .card { border:1px solid #ddd; border-radius: 10px; padding: 12px; }
+    h2 { margin: 0 0 8px; font-size: 16px; }
+    a { display:block; padding:6px 0; text-decoration:none; }
+    a:hover { text-decoration: underline; }
+    .tags { color:#888; font-size:12px; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+<header>
+  <input id="q" placeholder="Search links… (press / to focus)" autofocus />
+  <span class="hint">Enter opens first • Esc clears • / focuses</span>
+</header>
+
+<div class="grid" id="sections">
+
+  <div class="card" data-section="Work">
+    <h2>Work</h2>
+    <a href="https://jira.example.com" data-tags="jira tickets agile">Jira</a>
+    <a href="https://confluence.example.com" data-tags="docs wiki">Confluence</a>
+    <a href="https://github.com" data-tags="git code repo">GitHub</a>
+    <div class="tags">tags: jira, docs, git</div>
+  </div>
+
+  <div class="card" data-section="Cloud">
+    <h2>Cloud</h2>
+    <a href="https://console.aws.amazon.com" data-tags="aws console cloud">AWS Console</a>
+    <a href="https://grafana.example.com" data-tags="metrics monitoring grafana">Grafana</a>
+    <a href="https://kibana.example.com" data-tags="logs elk kibana">Kibana</a>
+    <div class="tags">tags: aws, monitoring, logs</div>
+  </div>
+
+  <div class="card" data-section="Dev">
+    <h2>Dev</h2>
+    <a href="https://start.spring.io" data-tags="spring boot generator">Spring Initializr</a>
+    <a href="https://docs.spring.io" data-tags="spring docs reference">Spring Docs</a>
+    <a href="https://projectreactor.io/docs" data-tags="reactor webflux reactive">Reactor Docs</a>
+    <div class="tags">tags: spring, reactor</div>
+  </div>
+
+</div>
+
+<script>
+  const q = document.getElementById('q');
+  const cards = [...document.querySelectorAll('.card')];
+  const links = [...document.querySelectorAll('a[data-tags]')];
+
+  function filter() {
+    const term = q.value.trim().toLowerCase();
+    let firstVisible = null;
+
+    cards.forEach(card => {
+      const cardLinks = [...card.querySelectorAll('a[data-tags]')];
+      let any = false;
+
+      cardLinks.forEach(a => {
+        const hay = (a.textContent + " " + a.href + " " + (a.dataset.tags || "")).toLowerCase();
+        const visible = !term || hay.includes(term);
+        a.classList.toggle('hidden', !visible);
+        if (visible && !firstVisible) firstVisible = a;
+        if (visible) any = true;
+      });
+
+      card.classList.toggle('hidden', !any);
+    });
+
+    return firstVisible;
+  }
+
+  q.addEventListener('input', filter);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); }
+    if (e.key === 'Escape') { q.value = ''; filter(); }
+    if (e.key === 'Enter' && document.activeElement === q) {
+      const first = filter();
+      if (first) window.location.href = first.href;
+    }
+  });
+
+  filter();
+</script>
+</body>
+</html>
