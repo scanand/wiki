@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Enterprise Links Portal</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#101826; --panel2:#0f1720; --text:#e6edf3; --muted:#9fb0c3;
+      --border:#1f2a37; --accent:#3b82f6; --accent2:#22c55e; --warn:#f59e0b; --danger:#ef4444;
+      --shadow: 0 10px 25px rgba(0,0,0,.25);
+      --radius:14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New";
+      --sans: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    [data-theme="light"]{
+      --bg:#f6f7fb; --panel:#ffffff; --panel2:#fbfcff; --text:#0b1220; --muted:#5b6b7d;
+      --border:#d6dde8; --accent:#2563eb; --accent2:#16a34a; --warn:#d97706; --danger:#dc2626;
+      --shadow: 0 12px 24px rgba(18,30,56,.12);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1200px;margin:0 auto;padding:20px 16px 40px;}
+    header{
+      display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+      position:sticky;top:0;background:linear-gradient(to bottom, var(--bg), rgba(0,0,0,0));
+      padding:16px 0 10px; z-index:5;
+    }
+    .brand{display:flex;align-items:baseline;gap:10px; margin-right:auto;}
+    .brand h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.2px}
+    .brand .pill{font-size:12px;color:var(--muted);border:1px solid var(--border);padding:4px 8px;border-radius:999px}
+    .search{
+      flex: 1 1 420px; display:flex; gap:10px; align-items:center;
+      background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:10px 12px;
+      box-shadow:var(--shadow);
+    }
+    .search input{
+      flex:1;border:0;outline:none;background:transparent;color:var(--text);
+      font-size:15px;
+    }
+    .kbd{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--border);padding:2px 6px;border-radius:8px}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{
+      background:var(--panel); border:1px solid var(--border); color:var(--text);
+      padding:9px 12px;border-radius:10px; cursor:pointer; box-shadow:var(--shadow);
+      display:inline-flex;gap:8px;align-items:center; font-size:13px;
+      user-select:none;
+    }
+    .btn:hover{border-color:rgba(59,130,246,.6)}
+    .btn.primary{background:linear-gradient(180deg, rgba(59,130,246,.18), rgba(59,130,246,.08)); border-color:rgba(59,130,246,.55)}
+    .btn.good{background:linear-gradient(180deg, rgba(34,197,94,.16), rgba(34,197,94,.06)); border-color:rgba(34,197,94,.55)}
+    .btn.warn{background:linear-gradient(180deg, rgba(245,158,11,.16), rgba(245,158,11,.06)); border-color:rgba(245,158,11,.55)}
+    .btn.danger{background:linear-gradient(180deg, rgba(239,68,68,.16), rgba(239,68,68,.06)); border-color:rgba(239,68,68,.55)}
+    .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0 10px}
+    .filters{display:flex;gap:10px;flex-wrap:wrap}
+    select, .chip{
+      background:var(--panel); border:1px solid var(--border); color:var(--text);
+      padding:9px 10px;border-radius:10px; font-size:13px;
+    }
+    select{outline:none}
+    .stats{margin-left:auto;color:var(--muted);font-size:13px}
+    .grid{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap:14px;
+    }
+    .card{
+      background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+      padding:12px; box-shadow:var(--shadow); min-height:120px;
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .cardHead{display:flex; gap:10px; align-items:flex-start}
+    .favicon{
+      width:22px;height:22px;border-radius:6px;background:var(--panel2);border:1px solid var(--border);
+      display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);flex:0 0 auto;
+      overflow:hidden;
+    }
+    .titleBlock{min-width:0;flex:1}
+    .title{font-size:14px;font-weight:700;margin:0 0 2px;line-height:1.2}
+    .subtitle{font-size:12px;color:var(--muted);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .badges{display:flex;gap:6px;flex-wrap:wrap}
+    .badge{
+      font-size:11px;color:var(--muted);border:1px solid var(--border);padding:2px 8px;border-radius:999px;
+      background:var(--panel2);
+    }
+    .badge.pin{color:var(--text);border-color:rgba(34,197,94,.55);background:rgba(34,197,94,.10)}
+    .badge.env{border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.10)}
+    .badge.warn{border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.10)}
+    .desc{font-size:13px;color:var(--text);opacity:.92; margin:0}
+    .meta{
+      margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      font-size:12px; color:var(--muted);
+      border-top:1px dashed var(--border); padding-top:10px;
+    }
+    .actions{display:flex;gap:8px}
+    .iconBtn{
+      border:1px solid var(--border); background:var(--panel2); color:var(--text);
+      padding:6px 9px;border-radius:10px;cursor:pointer;font-size:12px;
+    }
+    .iconBtn:hover{border-color:rgba(59,130,246,.6)}
+    .small{font-family:var(--mono); font-size:11px; color:var(--muted)}
+    .empty{
+      margin-top:20px;background:var(--panel); border:1px dashed var(--border); border-radius:var(--radius);
+      padding:18px;color:var(--muted)
+    }
+
+    /* Modal */
+    .modalOverlay{
+      position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:99;
+      padding:18px;
+    }
+    .modal{
+      width:min(820px, 100%); background:var(--panel); border:1px solid var(--border); border-radius:16px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+    .modalHeader{
+      padding:14px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:10px;
+      background:linear-gradient(180deg, var(--panel2), transparent);
+    }
+    .modalHeader h3{margin:0;font-size:14px}
+    .modalBody{padding:14px 16px}
+    .formGrid{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+    .formGrid .full{grid-column:1/-1}
+    label{display:block; font-size:12px; color:var(--muted); margin:0 0 6px}
+    input[type="text"], input[type="url"], textarea{
+      width:100%; padding:10px 10px; border-radius:12px; border:1px solid var(--border);
+      background:var(--panel2); color:var(--text); outline:none;
+    }
+    textarea{min-height:86px; resize:vertical}
+    .row2{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .modalFooter{
+      padding:14px 16px; border-top:1px solid var(--border); display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
+      background:linear-gradient(0deg, var(--panel2), transparent);
+    }
+    .hintRow{display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:12px; margin-top:10px}
+    .toast{
+      position:fixed; bottom:18px; left:50%; transform:translateX(-50%);
+      background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:10px 14px;
+      box-shadow:var(--shadow); color:var(--text); display:none; z-index:100;
+    }
+    .muted{color:var(--muted)}
+    .dangerText{color:var(--danger)}
+    .mono{font-family:var(--mono)}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <header>
+      <div class="brand">
+        <h1>Links Portal</h1>
+        <span class="pill">Enterprise-grade • single file • localStorage</span>
+      </div>
+
+      <div class="search" title="Search title, url, tags, notes. Press / to focus. Enter opens first result.">
+        <span class="kbd">/</span>
+        <input id="q" placeholder="Search links (title, url, tags, notes)..." autocomplete="off"/>
+        <span class="kbd">Enter</span>
+        <span class="kbd">Ctrl+K</span>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn primary" id="btnNew" title="New link (N)">➕ New</button>
+        <button class="btn" id="btnEdit" title="Edit selected (E)">✏️ Edit</button>
+        <button class="btn" id="btnOpen" title="Open selected (O)">🔗 Open</button>
+        <button class="btn" id="btnPin" title="Pin/unpin selected (P)">📌 Pin</button>
+        <button class="btn" id="btnTheme" title="Toggle theme (T)">🌓 Theme</button>
+        <button class="btn good" id="btnExport" title="Export JSON">⬇️ Export</button>
+        <button class="btn good" id="btnImport" title="Import JSON">⬆️ Import</button>
+        <button class="btn warn" id="btnHelp" title="Shortcuts (?)">❓ Help</button>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="filters">
+        <select id="fCategory" title="Category filter">
+          <option value="">All categories</option>
+        </select>
+        <select id="fEnv" title="Environment filter">
+          <option value="">All env</option>
+          <option value="prod">prod</option>
+          <option value="stg">stg</option>
+          <option value="dev">dev</option>
+          <option value="local">local</option>
+          <option value="na">n/a</option>
+        </select>
+        <select id="fSort" title="Sort">
+          <option value="pin_then_title">Pinned → Title</option>
+          <option value="pin_then_recent">Pinned → Recent</option>
+          <option value="most_used">Most used</option>
+          <option value="recent">Recently opened</option>
+          <option value="category_title">Category → Title</option>
+        </select>
+      </div>
+
+      <div class="stats" id="stats"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" style="display:none"></div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modalOverlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modalHeader">
+        <h3 id="modalTitle">New Link</h3>
+        <div class="row2">
+          <span class="kbd">Esc</span>
+          <button class="iconBtn" id="modalClose" title="Close">✖</button>
+        </div>
+      </div>
+
+      <div class="modalBody">
+        <div class="formGrid">
+          <div>
+            <label>Title *</label>
+            <input type="text" id="mTitle" placeholder="e.g., Grafana Prod" />
+          </div>
+          <div>
+            <label>URL *</label>
+            <input type="url" id="mUrl" placeholder="https://..." />
+          </div>
+
+          <div>
+            <label>Category</label>
+            <input type="text" id="mCategory" placeholder="e.g., Observability" />
+          </div>
+
+          <div>
+            <label>Environment</label>
+            <input type="text" id="mEnv" placeholder="prod / stg / dev / local / n/a" />
+          </div>
+
+          <div class="full">
+            <label>Tags (comma separated)</label>
+            <input type="text" id="mTags" placeholder="logs, metrics, spring, k8s" />
+          </div>
+
+          <div class="full">
+            <label>Notes</label>
+            <textarea id="mNotes" placeholder="Short context: why this link exists, how to use it, credentials hints (avoid secrets), runbook pointers..."></textarea>
+          </div>
+
+          <div class="full">
+            <div class="row2">
+              <label style="margin:0;display:flex;gap:10px;align-items:center">
+                <input type="checkbox" id="mPinned"/> Pinned / Favorite
+              </label>
+              <span class="muted">Tip: use pinned for daily ops links.</span>
+            </div>
+            <div class="hintRow">
+              <span class="kbd">Ctrl+K</span><span>Command palette / focus search</span>
+              <span class="kbd">N</span><span>New</span>
+              <span class="kbd">E</span><span>Edit</span>
+              <span class="kbd">Del</span><span class="dangerText">Delete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modalFooter">
+        <button class="btn" id="btnCancel">Cancel</button>
+        <button class="btn danger" id="btnDelete" style="display:none">Delete</button>
+        <button class="btn good" id="btnSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept="application/json" style="display:none"/>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const STORAGE_KEY = "links_portal_v1";
+  const THEME_KEY = "links_portal_theme";
+
+  /** @type {{id:string,title:string,url:string,category:string,env:string,tags:string[],notes:string,pinned:boolean,clicks:number,lastOpened:number,createdAt:number,updatedAt:number}[]} */
+  let links = [];
+  let selectedId = null;
+
+  const $ = (id) => document.getElementById(id);
+
+  const q = $("q");
+  const grid = $("grid");
+  const empty = $("empty");
+  const stats = $("stats");
+  const fCategory = $("fCategory");
+  const fEnv = $("fEnv");
+  const fSort = $("fSort");
+
+  const modalOverlay = $("modalOverlay");
+  const modalTitle = $("modalTitle");
+  const modalClose = $("modalClose");
+  const btnCancel = $("btnCancel");
+  const btnSave = $("btnSave");
+  const btnDelete = $("btnDelete");
+
+  const mTitle = $("mTitle");
+  const mUrl = $("mUrl");
+  const mCategory = $("mCategory");
+  const mEnv = $("mEnv");
+  const mTags = $("mTags");
+  const mNotes = $("mNotes");
+  const mPinned = $("mPinned");
+
+  const fileInput = $("fileInput");
+  const toast = $("toast");
+
+  function now(){ return Date.now(); }
+  function uid(){ return "l_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16); }
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.style.display = "block";
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.style.display = "none", 1800);
+  }
+
+  function normalizeEnv(v){
+    const s = (v || "").trim().toLowerCase();
+    if(!s) return "na";
+    if(["prod","production"].includes(s)) return "prod";
+    if(["stg","stage","staging"].includes(s)) return "stg";
+    if(["dev","development"].includes(s)) return "dev";
+    if(["local","localhost"].includes(s)) return "local";
+    return s;
+  }
+
+  function hostnameFromUrl(url){
+    try{
+      const u = new URL(url);
+      return u.hostname;
+    }catch{
+      return "";
+    }
+  }
+
+  function load(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      try{
+        const parsed = JSON.parse(raw);
+        if(Array.isArray(parsed)) links = parsed;
+      }catch{}
+    }
+
+    if(!links.length){
+      links = seedData();
+      persist();
+    }
+
+    const theme = localStorage.getItem(THEME_KEY) || "dark";
+    setTheme(theme);
+  }
+
+  function persist(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
+  }
+
+  function seedData(){
+    const t = now();
+    return [
+      { id: uid(), title:"Jira", url:"https://jira.example.com", category:"Work", env:"na", tags:["tickets","agile"], notes:"Backlog, incidents, sprint boards.", pinned:true, clicks:0, lastOpened:0, createdAt:t, updatedAt:t },
+      { id: uid(), title:"Confluence", url:"https://confluence.example.com", category:"Work", env:"na", tags:["docs","wiki","runbook"], notes:"ADRs, runbooks, onboarding.", pinned:true, clicks:0, lastOpened:0, createdAt:t, updatedAt:t },
+      { id: uid(), title:"GitHub", url:"https://github.com", category:"Engineering", env:"na", tags:["git","repo","code"], notes:"Repos, PRs, issues.", pinned:true, clicks:0, lastOpened:0, createdAt:t, updatedAt:t },
+
+      { id: uid(), title:"Grafana (Prod)", url:"https://grafana-prod.example.com", category:"Observability", env:"prod", tags:["metrics","dashboards","alerts"], notes:"Prod dashboards and alert triage.", pinned:true, clicks:0, lastOpened:0, createdAt:t, updatedAt:t },
+      { id: uid(), title:"Kibana (Prod)", url:"https://kibana-prod.example.com", category:"Observability", env:"prod", tags:["logs","elk","search"], notes:"Production log exploration.", pinned:false, clicks:0, lastOpened:0, createdAt:t, updatedAt:t },
+      { id: uid(), title:"OpenAPI / Swagger", url:"http://localhost:8080/swagger-ui.html", category:"Dev", env:"local", tags:["spring","swagger","api"], notes:"Local Swagger UI.", pinned:false, clicks:0, lastOpened:0, createdAt:t, updatedAt:t },
+
+      { id: uid(), title:"K8s Cluster Console", url:"https://k8s.example.com", category:"Platform", env:"prod", tags:["kubernetes","cluster","ops"], notes:"Cluster management console.", pinned:false, clicks:0, lastOpened:0, createdAt:t, updatedAt:t },
+      { id: uid(), title:"MongoDB Docs", url:"https://www.mongodb.com/docs/", category:"Reference", env:"na", tags:["mongo","docs","database"], notes:"Reference docs.", pinned:false, clicks:0, lastOpened:0, createdAt:t, updatedAt:t },
+    ];
+  }
+
+  function setTheme(theme){
+    document.documentElement.setAttribute("data-theme", theme === "light" ? "light" : "dark");
+    localStorage.setItem(THEME_KEY, theme === "light" ? "light" : "dark");
+  }
+
+  function toggleTheme(){
+    const cur = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+    setTheme(cur === "light" ? "dark" : "light");
+    showToast(`Theme: ${cur === "light" ? "dark" : "light"}`);
+  }
+
+  function categories(){
+    const set = new Set();
+    links.forEach(l => { if(l.category && l.category.trim()) set.add(l.category.trim()); });
+    return Array.from(set).sort((a,b)=>a.localeCompare(b));
+  }
+
+  function refreshCategoryFilter(){
+    const cur = fCategory.value;
+    const opts = categories();
+    fCategory.innerHTML = `<option value="">All categories</option>` + opts.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+    if(opts.includes(cur)) fCategory.value = cur;
+  }
+
+  function escapeHtml(s){
+    return (s ?? "").toString()
+      .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  }
+
+  function filtered(){
+    const term = (q.value || "").trim().toLowerCase();
+    const cat = (fCategory.value || "").trim();
+    const env = (fEnv.value || "").trim().toLowerCase();
+
+    let out = links.filter(l => {
+      if(cat && (l.category || "") !== cat) return false;
+      if(env && (normalizeEnv(l.env) !== env)) return false;
+
+      if(!term) return true;
+      const hay = [
+        l.title, l.url, l.category, l.env,
+        (l.tags || []).join(","), l.notes
+      ].join(" ").toLowerCase();
+      return hay.includes(term);
+    });
+
+    out = sortLinks(out, fSort.value);
+    return out;
+  }
+
+  function sortLinks(arr, mode){
+    const copy = arr.slice();
+    const byTitle = (a,b) => (a.title||"").localeCompare(b.title||"");
+    const byRecent = (a,b) => (b.lastOpened||0) - (a.lastOpened||0);
+    const byClicks = (a,b) => (b.clicks||0) - (a.clicks||0);
+
+    const pinFirst = (a,b) => (b.pinned===true) - (a.pinned===true);
+
+    switch(mode){
+      case "pin_then_recent": return copy.sort((a,b)=> pinFirst(a,b) || byRecent(a,b) || byTitle(a,b));
+      case "most_used": return copy.sort((a,b)=> byClicks(a,b) || pinFirst(a,b) || byTitle(a,b));
+      case "recent": return copy.sort((a,b)=> byRecent(a,b) || pinFirst(a,b) || byTitle(a,b));
+      case "category_title": return copy.sort((a,b)=> (a.category||"").localeCompare(b.category||"") || pinFirst(a,b) || byTitle(a,b));
+      case "pin_then_title":
+      default: return copy.sort((a,b)=> pinFirst(a,b) || byTitle(a,b));
+    }
+  }
+
+  function render(){
+    refreshCategoryFilter();
+
+    const list = filtered();
+    const total = links.length;
+    const shown = list.length;
+
+    stats.textContent = `${shown}/${total} shown` + (selectedId ? ` • selected: ${selectedTitle()}` : "");
+
+    grid.innerHTML = "";
+    if(!shown){
+      empty.style.display = "block";
+      empty.innerHTML = `
+        <div><b>No results.</b> Try clearing filters or search.</div>
+        <div class="muted" style="margin-top:8px">
+          Tips: Press <span class="kbd">N</span> to add a link • <span class="kbd">Ctrl+K</span> to focus search • <span class="kbd">Esc</span> to clear search
+        </div>`;
+      return;
+    } else {
+      empty.style.display = "none";
+    }
+
+    list.forEach(l => {
+      const host = hostnameFromUrl(l.url);
+      const env = normalizeEnv(l.env);
+      const isSelected = l.id === selectedId;
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.tabIndex = 0;
+      card.dataset.id = l.id;
+      card.style.outline = isSelected ? `2px solid rgba(59,130,246,.75)` : "none";
+
+      const fav = l.pinned ? `<span class="badge pin">PINNED</span>` : "";
+      const envBadge = env && env !== "na" ? `<span class="badge env">${escapeHtml(env)}</span>` : `<span class="badge">n/a</span>`;
+      const tags = (l.tags || []).slice(0,6).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join("");
+      const moreTags = (l.tags||[]).length > 6 ? `<span class="badge">+${(l.tags||[]).length-6}</span>` : "";
+      const note = (l.notes||"").trim();
+      const noteLine = note ? `<p class="desc">${escapeHtml(note.length>140 ? note.slice(0,140)+"…" : note)}</p>` : `<p class="desc muted">No notes</p>`;
+
+      const last = l.lastOpened ? new Date(l.lastOpened).toLocaleString() : "never";
+      const faviconUrl = host ? `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=64` : "";
+      const faviconHtml = host ? `<img src="${faviconUrl}" alt="" style="width:20px;height:20px"/>` : "🔗";
+
+      card.innerHTML = `
+        <div class="cardHead">
+          <div class="favicon" title="${escapeHtml(host)}">${faviconHtml}</div>
+          <div class="titleBlock">
+            <p class="title">${escapeHtml(l.title || "(untitled)")}</p>
+            <p class="subtitle">${escapeHtml(l.url || "")}</p>
+          </div>
+        </div>
+
+        <div class="badges">
+          ${fav}
+          ${envBadge}
+          <span class="badge">${escapeHtml(l.category || "Uncategorized")}</span>
+          ${tags}${moreTags}
+        </div>
+
+        ${noteLine}
+
+        <div class="meta">
+          <div>
+            <span class="small">clicks:</span> <span class="mono">${l.clicks || 0}</span>
+            <span class="small"> • last:</span> <span class="mono">${escapeHtml(last)}</span>
+          </div>
+          <div class="actions">
+            <button class="iconBtn" data-act="open">Open</button>
+            <button class="iconBtn" data-act="edit">Edit</button>
+            <button class="iconBtn" data-act="pin">${l.pinned ? "Unpin" : "Pin"}</button>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", (e) => {
+        const act = e.target?.dataset?.act;
+        setSelected(l.id);
+        if(act === "open") openSelected();
+        if(act === "edit") openEdit();
+        if(act === "pin") togglePinSelected();
+      });
+
+      card.addEventListener("keydown", (e) => {
+        if(e.key === "Enter") { setSelected(l.id); openSelected(); }
+      });
+
+      grid.appendChild(card);
+    });
+
+    // If selection filtered out, pick first visible
+    if(selectedId && !list.some(x => x.id === selectedId)){
+      selectedId = list[0].id;
+      persistSelection();
+      render();
+    }
+    if(!selectedId && list.length){
+      selectedId = list[0].id;
+      persistSelection();
+      render();
+    }
+  }
+
+  function persistSelection(){
+    localStorage.setItem(STORAGE_KEY + "_selected", selectedId || "");
+  }
+  function loadSelection(){
+    const s = localStorage.getItem(STORAGE_KEY + "_selected");
+    if(s) selectedId = s;
+  }
+
+  function setSelected(id){
+    selectedId = id;
+    persistSelection();
+    render();
+  }
+
+  function selected(){
+    return links.find(l => l.id === selectedId) || null;
+  }
+  function selectedTitle(){
+    const l = selected();
+    return l ? l.title : "(none)";
+  }
+
+  function openSelected(){
+    const l = selected();
+    if(!l) return showToast("Nothing selected");
+    // track usage
+    l.clicks = (l.clicks || 0) + 1;
+    l.lastOpened = now();
+    l.updatedAt = now();
+    persist();
+    render();
+    window.open(l.url, "_blank", "noopener");
+  }
+
+  function togglePinSelected(){
+    const l = selected();
+    if(!l) return showToast("Nothing selected");
+    l.pinned = !l.pinned;
+    l.updatedAt = now();
+    persist();
+    render();
+    showToast(l.pinned ? "Pinned" : "Unpinned");
+  }
+
+  function openNew(){
+    modalTitle.textContent = "New Link";
+    btnDelete.style.display = "none";
+    clearModalFields();
+    mEnv.value = "na";
+    showModal();
+    // default category from filter
+    if(fCategory.value) mCategory.value = fCategory.value;
+  }
+
+  function openEdit(){
+    const l = selected();
+    if(!l) return showToast("Nothing selected");
+    modalTitle.textContent = "Edit Link";
+    btnDelete.style.display = "inline-flex";
+    fillModalFields(l);
+    showModal();
+  }
+
+  function clearModalFields(){
+    mTitle.value = "";
+    mUrl.value = "";
+    mCategory.value = "";
+    mEnv.value = "";
+    mTags.value = "";
+    mNotes.value = "";
+    mPinned.checked = false;
+  }
+
+  function fillModalFields(l){
+    mTitle.value = l.title || "";
+    mUrl.value = l.url || "";
+    mCategory.value = l.category || "";
+    mEnv.value = l.env || "na";
+    mTags.value = (l.tags || []).join(", ");
+    mNotes.value = l.notes || "";
+    mPinned.checked = !!l.pinned;
+  }
+
+  function showModal(){
+    modalOverlay.style.display = "flex";
+    setTimeout(()=>mTitle.focus(), 0);
+  }
+  function hideModal(){
+    modalOverlay.style.display = "none";
+  }
+
+  function upsertFromModal(){
+    const title = (mTitle.value || "").trim();
+    const url = (mUrl.value || "").trim();
+    if(!title) return showToast("Title is required");
+    if(!url) return showToast("URL is required");
+
+    // Validate URL
+    try{ new URL(url); }catch{ return showToast("Invalid URL"); }
+
+    const category = (mCategory.value || "").trim() || "Uncategorized";
+    const env = normalizeEnv(mEnv.value || "na");
+    const tags = (mTags.value || "")
+      .split(",")
+      .map(s=>s.trim())
+      .filter(Boolean)
+      .slice(0, 30);
+
+    const notes = (mNotes.value || "").trim();
+    const pinned = !!mPinned.checked;
+
+    const t = now();
+    let l = selected();
+    const editing = !!(l && modalTitle.textContent.startsWith("Edit"));
+
+    if(editing){
+      l.title = title;
+      l.url = url;
+      l.category = category;
+      l.env = env;
+      l.tags = tags;
+      l.notes = notes;
+      l.pinned = pinned;
+      l.updatedAt = t;
+    } else {
+      l = {
+        id: uid(),
+        title, url,
+        category, env,
+        tags, notes,
+        pinned,
+        clicks: 0,
+        lastOpened: 0,
+        createdAt: t,
+        updatedAt: t
+      };
+      links.push(l);
+      selectedId = l.id;
+      persistSelection();
+    }
+
+    persist();
+    hideModal();
+    render();
+    showToast(editing ? "Updated" : "Created");
+  }
+
+  function deleteSelected(){
+    const l = selected();
+    if(!l) return showToast("Nothing selected");
+    const ok = confirm(`Delete link:\n\n${l.title}\n${l.url}\n\nThis cannot be undone.`);
+    if(!ok) return;
+    links = links.filter(x => x.id !== l.id);
+    if(selectedId === l.id) selectedId = null;
+    persist();
+    render();
+    hideModal();
+    showToast("Deleted");
+  }
+
+  function exportJson(){
+    const payload = {
+      schema: 1,
+      exportedAt: new Date().toISOString(),
+      links
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `links-portal-export-${new Date().toISOString().replaceAll(":","").slice(0,15)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    showToast("Exported JSON");
+  }
+
+  function importJsonFile(file){
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{
+        const obj = JSON.parse(reader.result);
+        let imported = obj.links;
+        if(Array.isArray(obj)) imported = obj;
+        if(!Array.isArray(imported)) throw new Error("Invalid format");
+
+        // merge by id; also allow raw list without ids -> generate
+        const map = new Map(links.map(l => [l.id, l]));
+        imported.forEach(item => {
+          if(!item || typeof item !== "object") return;
+          const id = item.id || uid();
+          const merged = {
+            id,
+            title: (item.title || "").trim() || "(untitled)",
+            url: (item.url || "").trim() || "https://example.com",
+            category: (item.category || "Uncategorized").trim(),
+            env: normalizeEnv(item.env || "na"),
+            tags: Array.isArray(item.tags) ? item.tags.map(String).map(s=>s.trim()).filter(Boolean) : [],
+            notes: (item.notes || "").toString(),
+            pinned: !!item.pinned,
+            clicks: Number(item.clicks || 0),
+            lastOpened: Number(item.lastOpened || 0),
+            createdAt: Number(item.createdAt || now()),
+            updatedAt: Number(item.updatedAt || now()),
+          };
+          map.set(id, merged);
+        });
+
+        links = Array.from(map.values());
+        persist();
+        render();
+        showToast("Imported & merged");
+      }catch(e){
+        alert("Import failed: " + e.message);
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function showHelp(){
+    alert(
+`Shortcuts
+---------
+/        Focus search
+Ctrl+K   Focus search (command palette style)
+Enter    Open first visible result (when search focused)
+O        Open selected
+N        New link
+E        Edit selected
+P        Pin/unpin selected
+T        Toggle theme
+Del      Delete selected (with confirm)
+Esc      Clear search / close modal
+
+Tips
+----
+- Use Category + Env filters for prod/stg/dev separation.
+- Export JSON and store in Git/OneDrive to sync across machines.
+- Keep notes short: runbook pointers, purpose, context (avoid secrets).`
+    );
+  }
+
+  // Buttons
+  $("btnNew").addEventListener("click", openNew);
+  $("btnEdit").addEventListener("click", openEdit);
+  $("btnOpen").addEventListener("click", openSelected);
+  $("btnPin").addEventListener("click", togglePinSelected);
+  $("btnTheme").addEventListener("click", toggleTheme);
+  $("btnExport").addEventListener("click", exportJson);
+  $("btnImport").addEventListener("click", () => fileInput.click());
+  $("btnHelp").addEventListener("click", showHelp);
+
+  fileInput.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    if(file) importJsonFile(file);
+    fileInput.value = "";
+  });
+
+  // Filters / search
+  q.addEventListener("input", render);
+  fCategory.addEventListener("change", render);
+  fEnv.addEventListener("change", render);
+  fSort.addEventListener("change", render);
+
+  // Modal events
+  modalClose.addEventListener("click", hideModal);
+  btnCancel.addEventListener("click", hideModal);
+  btnSave.addEventListener("click", upsertFromModal);
+  btnDelete.addEventListener("click", deleteSelected);
+
+  modalOverlay.addEventListener("click", (e) => {
+    if(e.target === modalOverlay) hideModal();
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener("keydown", (e) => {
+    const isModalOpen = modalOverlay.style.display === "flex";
+    const active = document.activeElement;
+
+    if(e.key === "/" && !isModalOpen){
+      if(active !== q){
+        e.preventDefault();
+        q.focus();
+      }
+      return;
+    }
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){
+      e.preventDefault();
+      if(!isModalOpen) q.focus();
+      return;
+    }
+    if(e.key === "Escape"){
+      if(isModalOpen){ hideModal(); return; }
+      if(active === q && q.value){
+        q.value = "";
+        render();
+        return;
+      }
+      return;
+    }
+    if(isModalOpen) return; // don't intercept while editing fields
+
+    const k = e.key.toLowerCase();
+    if(k === "n"){ openNew(); }
+    if(k === "e"){ openEdit(); }
+    if(k === "o"){ openSelected(); }
+    if(k === "p"){ togglePinSelected(); }
+    if(k === "t"){ toggleTheme(); }
+    if(k === "?"){ showHelp(); }
+
+    if(e.key === "Enter" && active === q){
+      // open first visible
+      const list = filtered();
+      if(list.length){
+        selectedId = list[0].id;
+        persistSelection();
+        render();
+        openSelected();
+      }
+    }
+
+    if(e.key === "Delete"){
+      const l = selected();
+      if(!l) return;
+      const ok = confirm(`Delete selected link?\n\n${l.title}\n${l.url}`);
+      if(ok){
+        links = links.filter(x => x.id !== l.id);
+        selectedId = null;
+        persist();
+        render();
+        showToast("Deleted");
+      }
+    }
+  });
+
+  // Init
+  load();
+  loadSelection();
+  render();
+
+})();
+</script>
+</body>
+</html>
