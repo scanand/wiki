@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Start Page</title>
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --panel: #0f1624;
+      --panel2:#0c1220;
+      --text:#e6edf3;
+      --muted:#9fb0c3;
+      --border:#1f2a37;
+      --shadow: 0 10px 24px rgba(0,0,0,.35);
+      --radius: 16px;
+
+      --blue:#3b82f6;
+      --green:#22c55e;
+      --purple:#a855f7;
+      --orange:#f59e0b;
+      --red:#ef4444;
+      --teal:#14b8a6;
+      --gray:#94a3b8;
+    }
+
+    /* Light mode if you want later: uncomment and toggle via body class
+    body.light{
+      --bg:#f6f7fb; --panel:#fff; --panel2:#fbfcff; --text:#0b1220; --muted:#5b6b7d; --border:#d6dde8;
+      --shadow: 0 12px 24px rgba(18,30,56,.12);
+    } */
+
+    *{box-sizing:border-box}
+    body{
+      margin: 0;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(59,130,246,.12), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(168,85,247,.10), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .wrap{ max-width: 1200px; margin: 0 auto; padding: 22px 16px 40px; }
+
+    header{
+      position: sticky; top: 0; z-index: 5;
+      padding: 14px 0 12px;
+      background: linear-gradient(to bottom, rgba(11,15,20,0.95), rgba(11,15,20,0.75), rgba(11,15,20,0));
+      backdrop-filter: blur(6px);
+    }
+
+    .topbar{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex; align-items:baseline; gap:10px; margin-right:auto;
+    }
+    .brand h1{ margin:0; font-size:18px; letter-spacing:.2px; }
+    .pill{
+      font-size:12px; color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .search{
+      flex: 1 1 460px;
+      display:flex; gap:10px; align-items:center;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      box-shadow: var(--shadow);
+    }
+    .search input{
+      flex:1;
+      border: 0; outline: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 15px;
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2px 6px;
+      background: rgba(255,255,255,0.02);
+    }
+    .hint{ color: var(--muted); font-size: 12px; }
+
+    .grid{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    /* Card styling */
+    .card{
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 12px 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform .08s ease, border-color .08s ease;
+    }
+    .card:hover{
+      transform: translateY(-1px);
+      border-color: rgba(148,163,184,.55);
+    }
+
+    /* Accent strip on top */
+    .card::before{
+      content:"";
+      position:absolute;
+      left:0; top:0; right:0;
+      height: 6px;
+      background: var(--gray);
+      opacity: .9;
+    }
+
+    /* Accent bar on left */
+    .card::after{
+      content:"";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width: 6px;
+      background: var(--gray);
+      opacity: .55;
+    }
+
+    /* Accent variants */
+    .card[data-accent="blue"]::before, .card[data-accent="blue"]::after{ background: var(--blue); }
+    .card[data-accent="green"]::before, .card[data-accent="green"]::after{ background: var(--green); }
+    .card[data-accent="purple"]::before, .card[data-accent="purple"]::after{ background: var(--purple); }
+    .card[data-accent="orange"]::before, .card[data-accent="orange"]::after{ background: var(--orange); }
+    .card[data-accent="red"]::before, .card[data-accent="red"]::after{ background: var(--red); }
+    .card[data-accent="teal"]::before, .card[data-accent="teal"]::after{ background: var(--teal); }
+
+    .cardHead{
+      display:flex; align-items:center; gap:10px;
+      padding-left: 6px; /* aligns with left accent */
+      margin-bottom: 8px;
+    }
+    .icon{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      flex: 0 0 auto;
+      font-size: 18px;
+    }
+    .cardTitle{
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: .2px;
+    }
+    .cardSub{
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .links{ padding-left: 6px; }
+    a{
+      display:block;
+      padding: 8px 8px;
+      border-radius: 10px;
+      margin: 4px 0;
+      border: 1px solid transparent;
+      transition: background .08s ease, border-color .08s ease;
+    }
+    a:hover{
+      background: rgba(255,255,255,0.035);
+      border-color: rgba(148,163,184,.28);
+      text-decoration: none;
+    }
+
+    .tags{
+      padding-left: 6px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px dashed rgba(31,42,55,.9);
+      padding-top: 10px;
+    }
+
+    .hidden{ display:none; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="topbar">
+        <div class="brand">
+          <h1>Quick Links</h1>
+          <span class="pill">Ctrl/Cmd + F is fine, but this is faster</span>
+        </div>
+
+        <div class="search" title="Press / to focus. Enter opens first visible link. Esc clears.">
+          <span class="kbd">/</span>
+          <input id="q" placeholder="Search links… (title, url, tags)" autofocus />
+          <span class="kbd">Enter</span>
+          <span class="kbd">Esc</span>
+        </div>
+
+        <div class="hint">Tip: add tags via <code>data-tags</code> to improve search</div>
+      </div>
+    </header>
+
+    <div class="grid" id="sections">
+
+      <div class="card" data-accent="blue" data-section="Work">
+        <div class="cardHead">
+          <div class="icon">🧩</div>
+          <div>
+            <p class="cardTitle">Work</p>
+            <p class="cardSub">Tickets • Docs • Repos</p>
+          </div>
+        </div>
+
+        <div class="links">
+          <a href="https://jira.example.com" data-tags="jira tickets agile backlog">Jira</a>
+          <a href="https://confluence.example.com" data-tags="docs wiki confluence runbook adr">Confluence</a>
+          <a href="https://github.com" data-tags="git repo pull request">GitHub</a>
+        </div>
+
+        <div class="tags">tags: jira, docs, git</div>
+      </div>
+
+      <div class="card" data-accent="teal" data-section="Cloud">
+        <div class="cardHead">
+          <div class="icon">☁️</div>
+          <div>
+            <p class="cardTitle">Cloud</p>
+            <p class="cardSub">Console • IAM • Billing</p>
+          </div>
+        </div>
+
+        <div class="links">
+          <a href="https://console.aws.amazon.com" data-tags="aws console cloud iam">AWS Console</a>
+          <a href="https://portal.azure.com" data-tags="azure portal cloud">Azure Portal</a>
+          <a href="https://console.cloud.google.com" data-tags="gcp google cloud console">GCP Console</a>
+        </div>
+
+        <div class="tags">tags: aws, azure, gcp</div>
+      </div>
+
+      <div class="card" data-accent="green" data-section="Observability">
+        <div class="cardHead">
+          <div class="icon">📈</div>
+          <div>
+            <p class="cardTitle">Observability</p>
+            <p class="cardSub">Dashboards • Logs • Alerts</p>
+          </div>
+        </div>
+
+        <div class="links">
+          <a href="https://grafana.example.com" data-tags="grafana metrics dashboards alerts">Grafana</a>
+          <a href="https://kibana.example.com" data-tags="kibana elastic logs elk search">Kibana</a>
+          <a href="https://prometheus.example.com" data-tags="prometheus metrics monitoring">Prometheus</a>
+        </div>
+
+        <div class="tags">tags: metrics, logs, alerts</div>
+      </div>
+
+      <div class="card" data-accent="purple" data-section="Dev">
+        <div class="cardHead">
+          <div class="icon">🛠️</div>
+          <div>
+            <p class="cardTitle">Dev</p>
+            <p class="cardSub">Docs • Generators • Tools</p>
+          </div>
+        </div>
+
+        <div class="links">
+          <a href="https://start.spring.io" data-tags="spring boot generator initializr">Spring Initializr</a>
+          <a href="https://docs.spring.io" data-tags="spring documentation reference">Spring Docs</a>
+          <a href="https://projectreactor.io/docs" data-tags="reactor webflux reactive mono flux">Reactor Docs</a>
+        </div>
+
+        <div class="tags">tags: spring, reactor</div>
+      </div>
+
+      <div class="card" data-accent="orange" data-section="CI/CD">
+        <div class="cardHead">
+          <div class="icon">🚦</div>
+          <div>
+            <p class="cardTitle">CI/CD</p>
+            <p class="cardSub">Pipelines • Deployments</p>
+          </div>
+        </div>
+
+        <div class="links">
+          <a href="https://gitlab.example.com" data-tags="gitlab ci pipeline runners">GitLab</a>
+          <a href="https://jenkins.example.com" data-tags="jenkins ci jobs pipelines">Jenkins</a>
+          <a href="https://argo.example.com" data-tags="argo cd deployment kubernetes">Argo CD</a>
+        </div>
+
+        <div class="tags">tags: pipelines, deploy</div>
+      </div>
+
+      <div class="card" data-accent="red" data-section="Prod">
+        <div class="cardHead">
+          <div class="icon">🔥</div>
+          <div>
+            <p class="cardTitle">Prod / On-call</p>
+            <p class="cardSub">Runbooks • Incidents • Status</p>
+          </div>
+        </div>
+
+        <div class="links">
+          <a href="https://status.example.com" data-tags="status uptime incident">Status Page</a>
+          <a href="https://pagerduty.example.com" data-tags="pagerduty oncall incident alerts">PagerDuty</a>
+          <a href="https://runbooks.example.com" data-tags="runbook playbook operations">Runbooks</a>
+        </div>
+
+        <div class="tags">tags: oncall, incident</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const q = document.getElementById('q');
+    const cards = [...document.querySelectorAll('.card')];
+
+    function allLinks() {
+      return [...document.querySelectorAll('.card:not(.hidden) a:not(.hidden)')];
+    }
+
+    function filter() {
+      const term = q.value.trim().toLowerCase();
+      let firstVisible = null;
+
+      cards.forEach(card => {
+        const cardLinks = [...card.querySelectorAll('a[data-tags]')];
+        let any = false;
+
+        cardLinks.forEach(a => {
+          const hay = (a.textContent + " " + a.href + " " + (a.dataset.tags || "")).toLowerCase();
+          const visible = !term || hay.includes(term);
+          a.classList.toggle('hidden', !visible);
+          if (visible && !firstVisible) firstVisible = a;
+          if (visible) any = true;
+        });
+
+        card.classList.toggle('hidden', !any);
+      });
+
+      return firstVisible;
+    }
+
+    q.addEventListener('input', filter);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); }
+      if (e.key === 'Escape') { q.value = ''; filter(); }
+      if (e.key === 'Enter' && document.activeElement === q) {
+        const first = filter();
+        if (first) window.location.href = first.href;
+      }
+    });
+
+    filter();
+  </script>
+</body>
+</html>
